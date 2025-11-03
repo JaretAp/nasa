@@ -176,7 +176,7 @@ button:disabled {
 .gallery-item:hover .gallery-media video,
 .gallery-item:focus-within .gallery-media img,
 .gallery-item:focus-within .gallery-media video {
-  transform: scale(1.06);
+  transform: scale(1.3);
 }
 
 .gallery-media.is-video {
