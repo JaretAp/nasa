@@ -14,6 +14,7 @@ let fetchButton;
 let containerEl;
 let modalController;
 let defaultButtonText = '';
+let loaderDisplayedAt = 0;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -76,6 +77,7 @@ async function handleFetchClick() {
     }
 
     const data = await response.json();
+    await ensureLoaderDelay();
 
     if (!Array.isArray(data) || !data.length) {
       showEmptyState();
@@ -85,6 +87,7 @@ async function handleFetchClick() {
     renderGallery(data);
   } catch (error) {
     console.error('Unable to load NASA APOD data:', error);
+    await ensureLoaderDelay();
     showErrorState();
   } finally {
     fetchButton.disabled = false;
@@ -93,6 +96,7 @@ async function handleFetchClick() {
 }
 
 function showLoader() {
+  loaderDisplayedAt = Date.now();
   galleryEl.innerHTML = '<div class="loader-message">Loading space photos...</div>';
 }
 
@@ -119,6 +123,20 @@ function renderGallery(items) {
   });
 
   galleryEl.appendChild(fragment);
+}
+
+async function ensureLoaderDelay(minDuration = 1500) {
+  if (!loaderDisplayedAt) {
+    return;
+  }
+
+  const elapsed = Date.now() - loaderDisplayedAt;
+
+  if (elapsed < minDuration) {
+    await new Promise((resolve) => setTimeout(resolve, minDuration - elapsed));
+  }
+
+  loaderDisplayedAt = 0;
 }
 
 function createGalleryItem(item) {
