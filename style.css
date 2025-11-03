@@ -34,11 +34,12 @@ img {
   gap: 16px;
   padding: 32px 24px 20px;
   background: linear-gradient(135deg, rgba(11, 61, 145, 0.08), rgba(252, 61, 33, 0.08));
+  --heading-size: clamp(2rem, 2.8vw, 2.6rem);
 }
 
 h1 {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: clamp(2rem, 2.8vw, 2.6rem);
+  font-size: var(--heading-size);
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -51,13 +52,24 @@ h1 {
   height: auto;
 }
 
+.logo-worm {
+  margin-right: 15px;
+}
+
+.logo-meatball {
+  width: auto;
+  height: calc(var(--heading-size) * 0.75);
+  max-width: none;
+  margin-left: 15px;
+}
+
 .filters {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 12px;
   justify-content: center;
-  margin: 0 24px 24px;
+  margin: 24px 24px 24px;
 }
 
 button {
